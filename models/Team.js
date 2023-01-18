@@ -7,6 +7,7 @@ const TeamSchema=new Schema({
     title:{type:String, required: true,min:3,max:30},
     content:{type:String, required: true,min:3,max:255},
     members:{type: [Schema.Types.ObjectId],default: undefined},
+    members_num:{type: Number,default: 1},
     requests:{type: [Schema.Types.ObjectId],default: undefined},
     date:{type:Date, default:Date.now},
 });

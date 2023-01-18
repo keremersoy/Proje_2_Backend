@@ -43,7 +43,7 @@ router.post("/register", (req, res) => {
 });
 
 router.post("/login", (req, res) => {
-  const {username, password } = req.body;
+  const { username, password } = req.body;
 
   const { error } = loginSchema.validate(req.body);
 
@@ -67,7 +67,9 @@ router.post("/login", (req, res) => {
 
       const token = jwt.sign({ _id: user._id }, process.env.JWT_CODE);
 
-      res.header("Authorization", token).json({ accessToken: token });
+      res
+        .header("Authorization", token)
+        .json({ accessToken: token, userId: user._id });
     })
     .catch(() => {
       res.status(400).send("Invalid username or password.");

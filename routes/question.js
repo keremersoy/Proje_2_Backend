@@ -5,7 +5,7 @@ const Joi = require("joi");
 const postSchema = Joi.object({
   title: Joi.string().required().min(3).max(255),
   content: Joi.string().required().min(3).max(255),
-  img: Joi.string().max(1024),
+  img: Joi.string().allow("").max(1024),
   score: Joi.number(),
   userId: Joi.string(),
 });
@@ -15,11 +15,12 @@ const router = express.Router();
 router.post("/add", (req, res) => {
   const { error } = postSchema.validate(req.body);
   if (error) {
+    console.log(error);
     res.status(400).send(error.details[0].message);
     return;
   }
-
-  const post = new Question({ ...req.body, user: req.userId });
+  
+  const post = new Question({ ...req.body, userId: req.userId });
 
   post
     .save()

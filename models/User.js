@@ -8,6 +8,8 @@ const UserSchema=new Schema({
     email:{type:String, required: true,min:6,max:255,unique:true},
     password:{type:String, required: true,min:3,max:1024},
     date:{type:Date, default:Date.now},
+    image:{type:String,default:""},
+    github:{type:String,default:""}
 });
 
 module.exports= mongoose.model("User",UserSchema);
