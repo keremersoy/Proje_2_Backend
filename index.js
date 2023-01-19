@@ -6,6 +6,7 @@ const authRouter = require("./routes/auth.js");
 const questionRouter = require("./routes/question.js");
 const teamRouter = require("./routes/team.js");
 const replyRouter = require("./routes/reply");
+const userRouter = require("./routes/user");
 const verifyToken = require("./middleware/verifyToken.js");
 
 require("dotenv/config");
@@ -27,7 +28,8 @@ mongoose.connect("mongodb+srv://" + process.env.MONGO_USERNAME + ":" + process.e
 app.use("/auth", authRouter);
 app.use("/question",verifyToken, questionRouter);
 app.use("/team",verifyToken, teamRouter);
-app.use("/reply",verifyToken,replyRouter)
+app.use("/reply",verifyToken,replyRouter);
+app.use("/user",verifyToken,userRouter);
 
 app.listen(5000, () => {
   console.log("Server is running on port 5000");

@@ -6,14 +6,14 @@ const jwt = require("jsonwebtoken");
 
 const loginSchema = Joi.object({
   username: Joi.string().required().min(3).max(15),
-  password: Joi.string().required().min(6).max(255),
+  password: Joi.string().required().min(3).max(255),
 });
 
 const registerSchema = Joi.object({
   name: Joi.string().required().min(3).max(255),
   username: Joi.string().required().min(3).max(15),
   email: Joi.string().required().email().min(6).max(255),
-  password: Joi.string().required().min(6).max(255),
+  password: Joi.string().required().min(3).max(255),
 });
 
 const router = express.Router();
