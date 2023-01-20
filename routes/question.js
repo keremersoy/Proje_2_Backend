@@ -1,5 +1,6 @@
 const express = require("express");
 const Question = require("../models/Question");
+const Reply = require("../models/Reply");
 const Joi = require("joi");
 
 const postSchema = Joi.object({
@@ -40,6 +41,12 @@ router.post("/add", (req, res) => {
 
 router.delete("/delete/:id", (req, res) => {
   const { id } = req.params;
+
+  Reply.find({ parentId: id })
+    .remove()
+    .then((result) => {
+      console.log(result);
+    });
 
   Question.findByIdAndDelete(id)
     .then((post) => {

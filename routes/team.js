@@ -46,6 +46,11 @@ router.post("/add", (req, res) => {
 router.delete("/delete/:id", (req, res) => {
   const { id } = req.params;
 
+  TeamMember.find({ teamId: id })
+    .remove()
+    .then((result) => {
+      console.log(result);
+    });
   Team.findByIdAndDelete(id)
     .then((team) => {
       res.status(200).json({
@@ -94,25 +99,6 @@ router.get("/member/get/:team_id", (req, res) => {
       });
     });
 });
-/*
-router.get("/member/get/:user_id", (req, res) => {
-  const { user_id } = req.params;
-  const { team_id } = req.body;
-
-  TeamMember.find({ teamId: team_id ,userId:user_id})
-    .then((team) => {
-      res.status(200).json({
-        success: true,
-        data: team,
-      });
-    })
-    .catch((err) => {
-      res.status(400).json({
-        success: false,
-        message: err,
-      });
-    });
-});*/
 
 router.post("/member/request", (req, res) => {
   const { team_id } = req.body;
