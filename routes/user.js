@@ -5,11 +5,29 @@ const Team = require("../models/Team");
 
 const router = express.Router();
 
-router.get("/get/:user_id", (req, res) => {
-  const { user_id } = req.params;
+router.get("/get", (req, res) => {
 
   User
-    .find({_id:user_id})
+    .find({_id:req.userId})
+    .then((user) => {
+        res.status(200).json({
+            success: true,
+            data: user,
+          });
+     })
+     .catch((err) => {
+        res.status(400).json({
+          success: false,
+          message: err,
+        });
+    });
+});
+
+router.get("/get/:id", (req, res) => {
+  const {id}=req.params;
+
+  User
+    .find({_id:id})
     .then((user) => {
         res.status(200).json({
             success: true,
