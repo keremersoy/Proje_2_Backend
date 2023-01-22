@@ -82,6 +82,23 @@ router.get("/get", (req, res) => {
     });
 });
 
+router.get("/get/teamsForUser", (req, res) => {
+
+  TeamMember.find({userId:req.userId})
+    .then((teams) => {
+      res.status(200).json({
+        success: true,
+        data: teams,
+      });
+    })
+    .catch((err) => {
+      res.status(400).json({
+        success: false,
+        message: err,
+      });
+    });
+});
+
 router.get("/member/get/:team_id", (req, res) => {
   const { team_id } = req.params;
 
